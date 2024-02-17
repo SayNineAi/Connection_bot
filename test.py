@@ -22,4 +22,3 @@ driver = webdriver.Chrome(service=service, options=options)
 driver.get("https://www.linkedin.com/mynetwork/invite-connect/connections/")
 time.sleep(60)  # Consider using WebDriverWait here
 driver.quit()
-

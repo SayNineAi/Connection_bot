@@ -2,6 +2,9 @@ attrs==23.1.0
 certifi==2023.5.7
 charset-normalizer==3.3.2
 coloredlogs==15.0.1
+clean-text
+oauth2client
+linkedin_scraper
 EasyProcess==1.1
 entrypoint2==1.1
 exceptiongroup==1.1.3
