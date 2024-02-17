@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "musicsearch-321511",
+  "private_key_id": "be1743e3af234cd37e5a3e5b38326636709ca239",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCnms7Ql4Tr1fJl\np3XIpGIFowDaVPT/EW5EUULEXee6X48lv/h0Ubo1elFVtphasr2LvQQijQv10ade\nH2eakXUSvEdCYNCm37PamyRPErzzeYaQQMAmbKW/Ipu5CGXQegjoCAQeR0I5ay7h\nhz1dLNcyxCGk1JSqZMye7kzcIFOqBaMA2FpGi1Zeo2poTGaJdFcrVBYT7Hpj8Ecm\n7jsQqYFvG/nm5VzBaC20Ld9QAJUgGxS+zjdDQrK1u/1aHVwykH9vhcPhwCTD5x5v\nNm4gNsl42XbC5HPh9RaYCp5OQzWaEBn/Q3ZFczS0ymY8w+4bF8nytVY3rR3pPg+i\nzb9XkJJxAgMBAAECggEAAZsmKDGLgIcIT5kPM+D/X3Z0Z6MwxdDw8Y6lySPtOIf5\n4y63vsWZtzF43g1l4FieIFyrUXlwh+Z+aBR89ao3KPrM5AHxfefe3VVnP6q6TMr5\nUyCLttKLtA0s2NUPxLOmqjKJd5DPPaWdSWP2XpIzbbUbbWzsD8XvgAZgjitxIcvw\nCd9XlFiApOxgO76oF9AOPW42VW1hrGphgy8Xm4WJBhuo+t3wSNGZ2zns7ZJj1cFB\nwovHm4aumLk8ps64amOkOcF7AQdF4ITgJrqH8suiICvTZL1ByYhpUvBHG9ZJokqP\n+Lf3d/yedQdyylVUUcowFdtuO5B154l/zeapXYU4AQKBgQDmcETLOYgLtdLrHufJ\n3febaOJ+N7bpi6ogC+goHCT/LrchB704nB5H5xkK+jihzk8J1Todi+2WBfwJSUFm\nzvSNTM5DT6jXtK700XGwu4FgPNg9d+51PicJbTCJfVPqV2BfJKgkrxYB7Zt471XS\n2L9OG4rmS6+TT/M86l9oXVmqYQKBgQC6MkFwMnuM7oNjhIvP13O+ajVbrQnoKcfQ\nDBoiMgN4nQ7MbXUfwq+IhWzRR2JIDN4tPBww07/dViLbltJ956mOGd5Thb+yPWJI\nwi2iw3PQCkrG7B9cE2sNbq7aEZaktL8c+z5MtvCVkjpqIVsWufxoQVmv7IXpLEl2\nBbF+CXeCEQKBgQCRZY8Sh0de1Cez8LkhdutPZJtcNj00GMqME9c0z6VMWaZ0sdRj\njqXQinETqxPmjCz0sFRN5kdPXJFNLqqUesp1CVwvvmhzSe8GS8ynTXfxSBLMngqY\ncVHiMcHpTmmPN/h3r8Jj+xEwwEJTyPdm5Rm358r5ShILKev4qIzwZc44oQKBgQCr\nlahsJnlo1FvMF9dnv1pwPRvS0dFxWx9BgAWNQZ2lRsbeaHgovpZYLuyqpyfQ0drk\nwKIR9PC4naodxg1P7W54/ym8umJ/dMXf2uGHPqq5KuLiEbKMfXCHvlnvp4m1WsNL\nh9RPib6Hd2vRZc+1T8tkn+RwlHyK9j70PibkyQCSoQKBgQC5bmSs/jKqZf6AgYbC\nxvNARXTbY2+W+Htlx0UkvqJGbmGPEjRwitYEWBukUD632KZyBRA6vT3S9qD2DsAm\n6LDmXnt/Cs9xJIGUz9Oh++B36GquYBrM9mV7hAhXRV5ERkG/nZNcOQmBAXaBgaBg\npmxhBNUaxFWjhn09Up26Gmi/iw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "test-account@musicsearch-321511.iam.gserviceaccount.com",
+  "client_id": "107705885046648342906",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/test-account%40musicsearch-321511.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
