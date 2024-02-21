@@ -2,6 +2,7 @@ SECTION = "//div[contains(@class, 'pv-top-card-v2-ctas')]"
 MORE_ACTIONS = '//span[text()="More"]/parent::button'
 CONNECT = '//span[text()="Connect"]/parent::div'
 SEND_WITHOUT_NOTE = '//span[text()="Send"]/parent::button'
+SEND_WITHOUT_NOTE_ALL = '//span[text()="Send without a note"]/parent::button'
 SHEET_URL = 'https://docs.google.com/spreadsheets/d/1UBpscD6ubxRR525lwcGZyie_NnoSDKy2aWL-WfepRb0/edit#gid=0'
 PROFILE_NAME = 'Profile 9'
 USER_DIR_PATH = 'C:/Users/Administrator/AppData/Local/Google/Chrome/User Data'
