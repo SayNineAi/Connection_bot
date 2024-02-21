@@ -2,6 +2,7 @@
 from pprint import pprint
 from typing import Union
 import pandas as pd
+import random
 
 #
 from gspread_dataframe import set_with_dataframe, get_as_dataframe
@@ -12,7 +13,7 @@ from selenium.webdriver.chrome.options import Options
 import undetected_chromedriver as uc
 import time
 from linkedin_scraper import actions
-from config import CONNECT, MORE_ACTIONS, SEND_WITHOUT_NOTE, SECTION
+from config import CONNECT, MORE_ACTIONS, SEND_WITHOUT_NOTE, SECTION, SEND_WITHOUT_NOTE_ALL
 from src.tools.utils.helper_functions import *
 from src.tools.sheet.data_exporter import connect_to_sheet
 
@@ -54,7 +55,6 @@ class ConnectLinkedin:
         options.add_argument(
             r"--user-data-dir="+self.user_data_dir)  # Update path if necessary
         options.add_argument(r'--profile-directory='+self.profile)
-        options.add_argument("start-maximized")
         self.driver = uc.Chrome(driver_executable_path=self.driver_dir, options=options)
 
     def check_before_connect(self, url):
@@ -75,6 +75,12 @@ class ConnectLinkedin:
             print(82)
             self.driver.get(url)
             time.sleep(10)
+            try:
+                panding = self.driver.find_elements(By.XPATH, '//span[text()="Pending"]')
+                if len(panding) > 0:
+                    return "Pending"
+            except:
+                pass
             print(85)
             more_actions = self.driver.find_elements(By.XPATH, MORE_ACTIONS)
             if len(more_actions) != 0:
@@ -95,6 +101,9 @@ class ConnectLinkedin:
             time.sleep(10)
             send_without = self.driver.find_elements(By.XPATH, SEND_WITHOUT_NOTE)
             print("Send without")
+            if len(send_without) == 0:
+                send_without = self.driver.find_elements(By.XPATH, SEND_WITHOUT_NOTE_ALL)
+            print("Send without")
             send_without[-1].click()
             time.sleep(5)
             self.update_count()
@@ -105,7 +114,7 @@ class ConnectLinkedin:
             print(e)
             return False
 
-    def iterate_connects(self, timeout=1500):
+    def iterate_connects(self, timeout=900):
         for index, row in self.input_df.iterrows():
             try:
                 if self.check_date_count() == 200:
@@ -128,7 +137,7 @@ class ConnectLinkedin:
                 set_with_dataframe(self.const_worksheet, self.const_df)
                 self.input_df = get_as_dataframe(self.input_worksheet)
                 self.const_df = get_as_dataframe(self.const_worksheet)
-                time.sleep(timeout)
+                time.sleep(random.randint(600, 900))
             except Exception as e:
                 print(e)
                 self.input_df.loc[index, "Comment"] = "Error"
