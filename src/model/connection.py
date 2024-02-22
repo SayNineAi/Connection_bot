@@ -120,6 +120,8 @@ class ConnectLinkedin:
             try:
                 if self.check_date_count() == 200:
                     break
+                pyautogui.hotkey("ctrl", "r")
+                time.sleep(10)
                 print(pd.isna(row['Connected']))
                 if not pd.isna(row['Connected']):
                     print('connected')
@@ -138,8 +140,7 @@ class ConnectLinkedin:
                 set_with_dataframe(self.const_worksheet, self.const_df)
                 self.input_df = get_as_dataframe(self.input_worksheet)
                 self.const_df = get_as_dataframe(self.const_worksheet)
-                time.sleep(10)
-                pyautogui.hotkey("ctrl", "r")
+
                 time.sleep(random.randint(600, 900))
             except Exception as e:
                 print(e)
