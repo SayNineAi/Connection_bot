@@ -17,6 +17,7 @@ from config import CONNECT, MORE_ACTIONS, SEND_WITHOUT_NOTE, SECTION, SEND_WITHO
 from src.tools.utils.helper_functions import *
 from src.tools.sheet.data_exporter import connect_to_sheet
 
+import pyautogui
 
 #
 class ConnectLinkedin:
@@ -137,6 +138,8 @@ class ConnectLinkedin:
                 set_with_dataframe(self.const_worksheet, self.const_df)
                 self.input_df = get_as_dataframe(self.input_worksheet)
                 self.const_df = get_as_dataframe(self.const_worksheet)
+                time.sleep(10)
+                pyautogui.hotkey("ctrl", "r")
                 time.sleep(random.randint(600, 900))
             except Exception as e:
                 print(e)
