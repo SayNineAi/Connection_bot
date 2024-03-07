@@ -1,14 +1,11 @@
 #
-from pprint import pprint
-from typing import Union
 import pandas as pd
 import random
 
 #
 from gspread_dataframe import set_with_dataframe, get_as_dataframe
 from datetime import datetime, timedelta, date
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 import undetected_chromedriver as uc
 import time
@@ -18,6 +15,7 @@ from src.tools.utils.helper_functions import *
 from src.tools.sheet.data_exporter import connect_to_sheet
 
 import pyautogui
+
 
 #
 class ConnectLinkedin:
@@ -41,6 +39,7 @@ class ConnectLinkedin:
         self.__init_sheets()
         self.__init_driver()
 
+    #
     def __init_sheets(self):
         self.input_sheet = self.acc.open_by_url(self.input_sheet_url)
         self.input_worksheet = self.input_sheet.worksheet("input")
@@ -51,6 +50,7 @@ class ConnectLinkedin:
         self.const_df = get_as_dataframe(self.const_worksheet)
         self.connection_df = get_as_dataframe(self.connection_worksheet)['URL']
 
+    #
     def __init_driver(self):
         options = Options()
         options.add_argument(
@@ -58,9 +58,11 @@ class ConnectLinkedin:
         options.add_argument(r'--profile-directory='+self.profile)
         self.driver = uc.Chrome(driver_executable_path=self.driver_dir, options=options)
 
+    #
     def check_before_connect(self, url):
         return url in self.connection_df
 
+    #
     def get_from_to(self):
         # Get today's date
         today = datetime.now()
@@ -71,6 +73,7 @@ class ConnectLinkedin:
         today_str = today.strftime('%Y-%m-%d')
         return start_of_week_str, today_str
 
+    #
     def connect_action(self, url) -> bool:
         try:
             print(82)
@@ -115,6 +118,32 @@ class ConnectLinkedin:
             print(e)
             return False
 
+    #
+    def update_by_column_name(self, index, column, data):
+        # Convert the provided index (0-based) to 1-based indexing used by Sheets
+        sheet_row = index + 2
+
+        # Find the column index for the given column name
+        try:
+            col_number = self.input_worksheet.find(column).col
+        except Exception:
+            print(f"Column '{column}' not found in the sheet.")
+            return
+        # Update the cell
+        self.input_worksheet.update_cell(sheet_row, col_number, data)
+
+    #
+    def update_by_row_index(self, index, column, data):
+        self.input_df.loc[index, column] = data
+        self.update_by_column_name(index, column, data)
+
+    #
+    def refresh_sheets(self):
+        self.input_df = get_as_dataframe(self.input_worksheet)
+        set_with_dataframe(self.const_worksheet, self.const_df)
+        self.const_df = get_as_dataframe(self.const_worksheet)
+
+    #
     def iterate_connects(self, timeout=900):
         for index, row in self.input_df.iterrows():
             try:
@@ -127,24 +156,24 @@ class ConnectLinkedin:
                     print('connected')
                     continue
                 url = row['LinkedinUrl']
-                print(self.check_before_connect(url))
                 if self.check_before_connect(url):
-                    self.input_df.loc[index, "Comment"] = "Connected"
-                    self.input_df.loc[index, "Connected"] = True
+                    # self.input_df.loc[index, "Comment"] = "Connected"
+                    self.update_by_row_index(index, "Comment", "Connected")
+                    # self.input_df.loc[index, "Connected"] = True
+                    self.update_by_row_index(index, "Connected", True)
                     continue
                 result = self.connect_action(url)
-                self.input_df.loc[index, "Connected"] = result
-                self.input_df.loc[index, "Comment"] = "Good"
+                # self.input_df.loc[index, "Connected"] = result
+                self.update_by_row_index(index, "Connected", result)
+                # self.input_df.loc[index, "Comment"] = "Good"
+                self.update_by_row_index(index, "Comment", "Good")
 
-                set_with_dataframe(self.input_worksheet, self.input_df)
-                set_with_dataframe(self.const_worksheet, self.const_df)
-                self.input_df = get_as_dataframe(self.input_worksheet)
-                self.const_df = get_as_dataframe(self.const_worksheet)
+                self.refresh_sheets()
 
                 time.sleep(random.randint(600, 900))
             except Exception as e:
                 print(e)
-                self.input_df.loc[index, "Comment"] = "Error"
+                self.update_by_row_index(index, "Comment", "Error")
                 continue
 
     @staticmethod
@@ -175,12 +204,9 @@ class ConnectLinkedin:
         from_date, to_date = self.get_current_week_dates_str()
         # Check if the current week's dates exist in the dataframe
         date_exists = ((self.const_df['from'] == from_date) & (self.const_df['to'] == to_date)).any()
-        print(date_exists)
-        print(self.const_df)
         if date_exists:
             # Get the count for the current week
             count = self.const_df.loc[(self.const_df['from'] == from_date) & (self.const_df['to'] == to_date), 'count'].iloc[0]
-            print(count)
             return count
         else:
             # Add a new row with current week's dates and count = 0
@@ -203,6 +229,6 @@ class ConnectLinkedin:
         except Exception as e:
             print(e)
         finally:
-            set_with_dataframe(self.input_worksheet, self.input_df)
+            # set_with_dataframe(self.input_worksheet, self.input_df)
             set_with_dataframe(self.const_worksheet, self.const_df)
             self.driver.quit()
